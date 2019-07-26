@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const goalSchema = new mongoose.Schema({
+const goalSchema = mongoose.Schema({
     title: {
         type: String,
     },
@@ -8,9 +8,11 @@ const goalSchema = new mongoose.Schema({
         type: String,
     },
     achived: Boolean,
-    daysToAchive: Number,
+    days_to_achive: Number,
 });
 
-const Goal = mongoose.model('Goal', goalSchema);
-
-export default Goal;
+// Export User model
+var Goal = module.exports = mongoose.model('Goal', goalSchema);
+module.exports.get = function (callback, limit) {
+    Goal.find(callback).limit(limit);
+}

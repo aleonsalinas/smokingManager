@@ -1,12 +1,14 @@
-import mongoose from 'mongoose';
+ const mongoose = require('mongoose');
 
-const cigarettesSchema = new mongoose.Schema({
-  createdAt: {
+const cigarettesSchema = mongoose.Schema({
+  created_at: {
     type: Date,
-    default: Date.now 
+    default: Date.now
   },
 });
 
-const Cigarette = mongoose.model('Cigarette', cigarettesSchema);
-
-export default Cigarette;
+// Export Cigarrette model
+var Cigarette = module.exports = mongoose.model('Cigarette', cigarettesSchema);
+module.exports.get = function (callback, limit) {
+  Cigarette.find(callback).limit(limit);
+}
