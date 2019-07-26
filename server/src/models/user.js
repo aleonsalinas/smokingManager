@@ -1,18 +1,20 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userSchema = mongoose.Schema({
   name: {
     type: String,
     unique: true,
   },
-  dailyCigarettes: Number,
-  unitPriceCigarette: Number,
-  noSmokingStartTime: {
+  daily_cigarettes: Number,
+  unit_price_cigarette: Number,
+  no_smoking_start_time: {
     type: Date,
     default: null
   },
 });
 
-const User = mongoose.model('User', userSchema);
-
-export default User;
+// Export User model
+var User = module.exports = mongoose.model('User', userSchema);
+module.exports.get = function (callback, limit) {
+  User.find(callback).limit(limit);
+}
